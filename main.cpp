@@ -1,6 +1,7 @@
 #include <chrono>
 #include <filesystem>
 #include <fstream>
+#include <thread>
 #include <iostream>
 #include <vector>
 #include "Graph.h"
@@ -33,6 +34,9 @@ int main() {
             std::cerr << "Failed to open tmp/results.txt for writing\n";
             return 1;
         }
+        auto threads_num = std::thread::hardware_concurrency();
+        threads_num = threads_num == 0 ? 2: threads_num;
+        std::cout << "\n\nNumber of threads: " << threads_num << "\n\n" << std::endl;
 
         RandomGraphGenerator gen;
 
